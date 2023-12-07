@@ -1,0 +1,19 @@
+{
+  "name": "pos-api",
+  "version": "1.0.0",
+  "description": "pos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevinHansa/Point-of-Sale-System.git"
+  },
+  "author": "DevinHansa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevinHansa/Point-of-Sale-System/issues"
+  },
+  "homepage": "https://github.com/DevinHansa/Point-of-Sale-System#readme"
+}
