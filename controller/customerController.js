@@ -43,8 +43,16 @@ const update = async(req, resp) => {
 
 }
 
-const deleteById = (req, resp) => {
-    // Implement delete logic here
+const deleteById =async (req, resp) => {
+    
+    const deleteData = await customerSchema.findOneAndDelete({ 'id': req.params.id });
+    if(deleteData){
+        return resp.status(204).json({'message':'deleted'});
+    }else{
+        return resp.status(500).json({'message':'internal server error'});
+    }
+     
+
 }
 
 const findAll = (req, resp) => {
@@ -53,4 +61,4 @@ const findAll = (req, resp) => {
 
 module.exports = {
     create, findByID, update, deleteById, findAll
-};
+}
