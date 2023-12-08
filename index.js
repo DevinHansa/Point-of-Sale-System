@@ -8,6 +8,9 @@ const port = process.env.SERVER_PORT || 3000;
 const app = express();
 
 const userRoute = require('./routes/userRoute');
+const customerRoute = require('./routes/customerRoute');
+const productRoute = require('./routes/productRoute');
+const orderRoute = require('./routes/orderRoute');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -32,7 +35,10 @@ app.get('/test-api', (req, resp) => {
   return resp.json({ 'message': 'Server started' });
 });
 
-app.use('/api/v1/user',userRoute)
+app.use('/api/v1/users',userRoute)
+app.use('/api/v1/orders',orderRoute)
+app.use('/api/v1/products',productRoute)
+app.use('/api/v1/customers',customerRoute)
 
 
 
