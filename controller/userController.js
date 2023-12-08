@@ -2,6 +2,7 @@ const userSchema = require('../model/userSchema');
 const bcrypt = require('bcrypt');
 const salt = 10;
 const nodemailer = require('nodemailer');
+const jsonwebtoken = require('jsonwebtoken');
 
 const register = (req, resp) => {
     const transporter = nodemailer.createTransport({
@@ -54,6 +55,34 @@ const register = (req, resp) => {
 
 const login = (req, resp) => {
     // Implement login logic here
+    userSchema.findOne({'email':req.body.email}).then(selectedUser=>{
+        if(selectedUser!=null){
+            bcrypt.compare(req.body.password,selectedUser.password,function(err,result){
+                if(err){
+                    return resp.status(500).json({'message':'internal server error'});
+                }
+
+                if(result){
+                    const payload={
+                        email:selectedUser.email
+                    }
+
+                    const secretKey=process.env.SECRET_KEY;
+                    const expiresIn='24h';
+                    const token = jsonwebtoken.sign(payload,secretKey,{expiresIn});
+                    return resp.status(200).json({'token':token});
+
+                }else{
+                    return resp.status(401).json({'message':'password incorrect'});
+                }
+                  
+                
+                    
+            });
+        }else{
+           return resp.status(404).json({'message':'not found'});
+        }
+    });
 }
 
 module.exports = {
